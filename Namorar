@@ -1,0 +1,74 @@
+<html>
+<head>
+  <title>Pedido de namoro</title>
+  <style>
+    .center {
+      text-align: center;
+      margin-top: 20vh;
+    }
+
+    .option-container {
+      display: inline-block;
+      position: relative;
+    }
+
+    .option-container label {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .option-container input[type="radio"] {
+      margin-right: 5px;
+    }
+
+    .moving {
+      position: absolute !important;
+      transition: left 1s ease-in-out, top 1s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="center">
+    <h1>Pedido de Namoro</h1>
+    <p>Você quer namorar comigo?</p>
+
+    <div class="option-container">
+      <label>
+        <input type="radio" name="resposta" value="sim">
+        Sim
+      </label>
+    </div>
+    <div class="option-container">
+      <label>
+        <input type="radio" name="resposta" value="nao" onclick="moveNoOption()">
+        Não
+      </label>
+    </div>
+  </div>
+
+  <script>
+    function moveNoOption() {
+      const naoContainer = document.querySelector('input[value="nao"]').closest('.option-container');
+
+      const randomLeft = Math.floor(Math.random() * (window.innerWidth - 5));
+      const randomTop = Math.floor(Math.random() * (window.innerHeight - 5));
+      
+      const minLeft = 5;
+      const maxLeft = window.innerWidth - naoContainer.offsetWidth - 5;
+      const minTop = 5;
+      const maxTop = window.innerHeight - naoContainer.offsetHeight - 5;
+
+      const limitedLeft = Math.max(minLeft, Math.min(randomLeft, maxLeft));
+      const limitedTop = Math.max(minTop, Math.min(randomTop, maxTop));
+
+      naoContainer.style.left = limitedLeft + 'px';
+      naoContainer.style.top = limitedTop + 'px';
+
+      naoContainer.classList.add('moving');
+      setTimeout(function() {
+        naoContainer.classList.remove('moving');
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
